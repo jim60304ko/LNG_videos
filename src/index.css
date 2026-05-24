@@ -25,6 +25,14 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  cursor: default; /* 預設使用普通箭頭游標 */
+  user-select: none; /* 預設禁用文字選取，避免點擊出現 I-beam */
+}
+
+/* 允許搜尋框選取文字與顯示輸入游標 */
+input, textarea {
+  user-select: text;
+  cursor: text;
 }
 
 h1, h2, h3 {
