@@ -59,7 +59,6 @@ function Videos() {
 
   const visibleVideos = filteredVideos.slice(0, visibleCount);
 
-  // 無限捲動
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -131,14 +130,19 @@ function Videos() {
         <div className="timeline-line"></div>
         
         {visibleVideos.map((video, index) => {
-          const currentYear = new Date(video.publishedAt).getFullYear();
+          const date = new Date(video.publishedAt);
+          const currentYear = date.getFullYear();
+          const currentMonth = date.getMonth() + 1;
+          const displayDate = `${currentYear}/${currentMonth}`;
+          
+          // 判斷是否為新的一年（用於高亮）
           const prevYear = index > 0 ? new Date(visibleVideos[index - 1].publishedAt).getFullYear() : null;
           const isNewYear = currentYear !== prevYear;
 
           return (
             <div key={video.id} className="timeline-item">
-              <div className={`timeline-dot ${isNewYear ? 'year-dot' : ''}`}>
-                {isNewYear && <span>{currentYear}</span>}
+              <div className={`timeline-dot ${isNewYear ? 'active-year' : ''}`}>
+                <span>{displayDate}</span>
               </div>
               <div className="timeline-content">
                 <div className="video-card" onClick={() => setSelectedVideo(video)}>
@@ -150,7 +154,7 @@ function Videos() {
                     <span className="channel-badge">{video.channelTitle}</span>
                     <h3>{video.title}</h3>
                     <div className="video-meta">
-                      <span>{new Date(video.publishedAt).toLocaleDateString()}</span>
+                      <span>{date.toLocaleDateString()}</span>
                       <span>{formatViews(video.viewCount)}</span>
                     </div>
                   </div>
