@@ -38,7 +38,7 @@ function Yaotou() {
             >
               <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>💊</div>
               <h2 style={{ color: 'var(--primary-color)', fontSize: '1.5rem' }}>{clipper.name}</h2>
-              <p style={{ color: var('--text-muted'), marginTop: '10px', fontSize: '0.9rem' }}>前往 YouTube 頻道</p>
+              <p style={{ color: 'var(--text-muted)', marginTop: '10px', fontSize: '0.9rem' }}>前往 YouTube 頻道</p>
             </a>
           ))}
         </div>
