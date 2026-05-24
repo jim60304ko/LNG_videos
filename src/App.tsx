@@ -11,6 +11,7 @@ interface Video {
   viewCount: string;
   duration: string;
   category: string;
+  channelTitle: string;
 }
 
 function formatDuration(isoDuration: string) {
@@ -23,7 +24,7 @@ function formatDuration(isoDuration: string) {
   const seconds = (match[3] || '').replace('S', '');
 
   const parts = [];
-  if (hours) parts.push(hours.padStart(2, '0'));
+  if (hours) parts.push(hours.padStart(1, '0'));
   parts.push((minutes || '0').padStart(2, '0'));
   parts.push((seconds || '0').padStart(2, '0'));
 
@@ -44,12 +45,8 @@ function App() {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
 
-  // 排序：從最新到最舊
-  const allVideos = useMemo(() => {
-    return [...(videoData as Video[])].sort((a, b) => 
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    );
-  }, []);
+  // 數據已經由腳本排序過，這裡直接使用
+  const allVideos = videoData as Video[];
 
   // 篩選邏輯
   const filteredVideos = useMemo(() => {
@@ -60,7 +57,7 @@ function App() {
 
   const visibleVideos = filteredVideos.slice(0, visibleCount);
 
-  // 無限捲動邏輯
+  // 無限捲動
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -68,13 +65,10 @@ function App() {
           setVisibleCount(prev => prev + 20);
         }
       },
-      { threshold: 1.0 }
+      { threshold: 0.1 }
     );
 
-    if (loaderRef.current) {
-      observer.observe(loaderRef.current);
-    }
-
+    if (loaderRef.current) observer.observe(loaderRef.current);
     return () => observer.disconnect();
   }, [visibleCount, filteredVideos.length]);
 
@@ -86,19 +80,19 @@ function App() {
   return (
     <div className="app">
       <header>
-        <h1 style={{ fontSize: '3rem', marginBottom: '10px' }}>LNG Timeline</h1>
-        <p>Memory of LNG Workshop</p>
+        <h1>LNG Timeline</h1>
+        <p>The Complete Archive of LNG Workshop</p>
       </header>
 
       <div className="controls">
         <input 
           type="text" 
-          placeholder="搜尋影片標題..." 
+          placeholder="搜尋影片..." 
           className="search-input"
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
-            setVisibleCount(20); // 搜尋時重置捲動數量
+            setVisibleCount(20);
           }}
         />
         <button className="btn-random" onClick={handleRandom}>🎲 Surprise Me!</button>
@@ -111,16 +105,16 @@ function App() {
           <div key={video.id} className="timeline-item">
             <div className="timeline-dot"></div>
             <div className="timeline-content">
-              <div className="sketch-card video-card" onClick={() => setSelectedVideo(video)}>
-                <img src={video.thumbnail} alt={video.title} className="video-thumbnail" />
+              <div className="video-card" onClick={() => setSelectedVideo(video)}>
+                <div className="video-thumbnail-container">
+                  <img src={video.thumbnail} alt={video.title} className="video-thumbnail" />
+                  <div className="video-duration-tag">{formatDuration(video.duration)}</div>
+                </div>
                 <div className="video-info">
+                  <span className="channel-badge">{video.channelTitle}</span>
                   <h3>{video.title}</h3>
                   <div className="video-meta">
                     <span>{new Date(video.publishedAt).toLocaleDateString()}</span>
-                    <span>{formatDuration(video.duration)}</span>
-                  </div>
-                  <div className="video-meta" style={{ marginTop: '5px' }}>
-                    <span style={{ color: 'var(--primary-color)' }}>{video.category === 'Highlight' ? '✨ 精華' : '📼 存檔'}</span>
                     <span>{formatViews(video.viewCount)}</span>
                   </div>
                 </div>
@@ -129,16 +123,15 @@ function App() {
           </div>
         ))}
         
-        <div ref={loaderRef} style={{ height: '50px', margin: '20px 0' }}>
-          {visibleCount < filteredVideos.length && <p>載入中...</p>}
+        <div ref={loaderRef} style={{ height: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          {visibleCount < filteredVideos.length && <div className="loader">載入中...</div>}
         </div>
       </div>
 
-      {/* 沉浸式播放器 */}
       {selectedVideo && (
         <div className="modal-overlay" onClick={() => setSelectedVideo(null)}>
+          <button className="close-btn" onClick={() => setSelectedVideo(null)}>&times;</button>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <button className="close-btn" onClick={() => setSelectedVideo(null)}>×</button>
             <div className="video-wrapper">
               <iframe 
                 src={`https://www.youtube.com/embed/${selectedVideo.id}?autoplay=1`}
@@ -148,9 +141,10 @@ function App() {
                 allowFullScreen
               ></iframe>
             </div>
-            <div style={{ marginTop: '20px', textAlign: 'left' }}>
+            <div className="modal-details">
+              <span className="channel-badge">{selectedVideo.channelTitle}</span>
               <h2>{selectedVideo.title}</h2>
-              <p style={{ color: '#ccc', marginTop: '10px' }}>{selectedVideo.description.substring(0, 200)}...</p>
+              <p>{selectedVideo.description}</p>
             </div>
           </div>
         </div>

@@ -4,25 +4,18 @@ const path = require('path');
 require('dotenv').config({ path: '.env.local' });
 
 const API_KEY = process.env.VITE_YOUTUBE_API_KEY;
-const CHANNEL_ID = 'UCKngQgSGHd3Hp3nkPs15YSA'; // 正確的 LNG Workshop Channel ID
 const OUTPUT_PATH = path.join(__dirname, '../src/data/videos.json');
 
-async function getUploadsPlaylistId() {
-  const response = await axios.get('https://www.googleapis.com/youtube/v3/channels', {
-    params: {
-      part: 'contentDetails',
-      id: CHANNEL_ID,
-      key: API_KEY
-    }
-  });
-  return response.data.items[0].contentDetails.relatedPlaylists.uploads;
-}
+const CHANNEL_IDS = [
+  'UCKngQgSGHd3Hp3nkPs15YSA', // LNG Workshop
+  'UCWxwLqgMVhRKx72qyykCBxQ'  // LNG 精華頻道 (lng6121)
+];
 
-async function fetchAllVideos(playlistId) {
+async function fetchAllVideos(playlistId, channelTitle) {
   let videos = [];
   let nextPageToken = '';
 
-  console.log('Starting to fetch videos...');
+  console.log(`Starting to fetch videos for: ${channelTitle}...`);
 
   do {
     const response = await axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
@@ -40,10 +33,10 @@ async function fetchAllVideos(playlistId) {
       title: item.snippet.title,
       description: item.snippet.description,
       publishedAt: item.snippet.publishedAt,
-      thumbnail: item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url
+      thumbnail: item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url,
+      channelTitle: channelTitle
     }));
 
-    // 為每組 50 部影片獲取額外資訊 (點閱率, 時長)
     const videoIds = items.map(v => v.id).join(',');
     const statsResponse = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
       params: {
@@ -57,7 +50,7 @@ async function fetchAllVideos(playlistId) {
     statsResponse.data.items.forEach(s => {
       statsMap[s.id] = {
         viewCount: s.statistics.viewCount,
-        duration: s.contentDetails.duration // ISO 8601 格式
+        duration: s.contentDetails.duration
       };
     });
 
@@ -65,13 +58,12 @@ async function fetchAllVideos(playlistId) {
       const stats = statsMap[v.id];
       v.viewCount = stats ? stats.viewCount : '0';
       v.duration = stats ? stats.duration : '';
-      // 自動分類邏輯
       v.category = v.title.includes('精華') ? 'Highlight' : 'Full';
     });
 
     videos = videos.concat(items);
     nextPageToken = response.data.nextPageToken;
-    console.log(`Fetched ${videos.length} videos so far...`);
+    console.log(`Fetched ${videos.length} videos from ${channelTitle}...`);
 
   } while (nextPageToken);
 
@@ -80,17 +72,38 @@ async function fetchAllVideos(playlistId) {
 
 async function main() {
   try {
-    const uploadsId = await getUploadsPlaylistId();
-    const allVideos = await fetchAllVideos(uploadsId);
+    let allCombinedVideos = [];
 
-    // 確保目錄存在
-    const dir = path.dirname(OUTPUT_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    for (const channelId of CHANNEL_IDS) {
+      const channelResponse = await axios.get('https://www.googleapis.com/youtube/v3/channels', {
+        params: {
+          part: 'snippet,contentDetails',
+          id: channelId,
+          key: API_KEY
+        }
+      });
+
+      if (!channelResponse.data.items || channelResponse.data.items.length === 0) {
+        console.error(`Could not find channel with ID: ${channelId}`);
+        continue;
+      }
+
+      const channelTitle = channelResponse.data.items[0].snippet.title;
+      const uploadsId = channelResponse.data.items[0].contentDetails.relatedPlaylists.uploads;
+      
+      const channelVideos = await fetchAllVideos(uploadsId, channelTitle);
+      allCombinedVideos = allCombinedVideos.concat(channelVideos);
     }
 
-    fs.writeFileSync(OUTPUT_PATH, JSON.stringify(allVideos, null, 2));
-    console.log(`Successfully saved ${allVideos.length} videos to ${OUTPUT_PATH}`);
+    // 去重並按日期排序
+    const uniqueVideos = Array.from(new Map(allCombinedVideos.map(v => [v.id, v])).values());
+    uniqueVideos.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+
+    const dir = path.dirname(OUTPUT_PATH);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+    fs.writeFileSync(OUTPUT_PATH, JSON.stringify(uniqueVideos, null, 2));
+    console.log(`Successfully saved ${uniqueVideos.length} unique videos to ${OUTPUT_PATH}`);
   } catch (error) {
     console.error('Error fetching videos:', error.response ? error.response.data.error.message : error.message);
   }

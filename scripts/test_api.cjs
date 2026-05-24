@@ -14,7 +14,7 @@ async function testConnection() {
     const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
         part: 'snippet',
-        q: 'lngworkshop',
+        q: 'lng6121',
         type: 'channel',
         key: API_KEY,
         maxResults: 1
