@@ -1,0 +1,105 @@
+.marquee-section {
+  width: 100%;
+  overflow: hidden;
+  padding: 40px 0;
+  position: relative;
+  background: rgba(255, 215, 0, 0.03);
+  border-top: 1px solid rgba(255, 215, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.marquee-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.marquee-container {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 20px;
+  padding: 0 10px;
+  animation: scroll 60s linear infinite; /* 控制滾動速度 */
+}
+
+.marquee-content:hover {
+  animation-play-state: paused; /* 滑鼠移入時暫停 */
+}
+
+.marquee-item {
+  flex: 0 0 250px; /* 固定寬度 */
+  height: 140px;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  transition: var(--transition);
+}
+
+.marquee-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.marquee-item-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.marquee-item:hover .marquee-item-overlay {
+  opacity: 1;
+}
+
+.marquee-item-overlay span {
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.marquee-item:hover {
+  transform: scale(1.05);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* 移動距離為內容總寬度的一半（因為我們複製了一份） */
+    transform: translateX(calc(-50% - 10px)); 
+  }
+}
+
+/* 響應式微調 */
+@media (max-width: 768px) {
+  .marquee-item {
+    flex: 0 0 180px;
+    height: 100px;
+  }
+}
