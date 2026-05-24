@@ -1,13 +1,13 @@
 .marquee-section {
-  width: 100vw; /* 佔滿全寬 */
-  margin-left: calc(-50vw + 50%); /* 修正全寬偏移 */
+  width: 100%;
+  max-width: 1200px;
   overflow: hidden;
-  padding: 20px 0; /* 縮小內距讓位置更往上 */
-  margin-top: -40px; /* 向上移動 */
+  padding: 40px 0;
+  margin-top: 20px; /* 稍微移下，填補移除文字後的空洞 */
   position: relative;
   background: rgba(255, 215, 0, 0.03);
-  border-top: 1px solid rgba(255, 215, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: 30px; /* 增加圓角符合整體風格 */
+  border: 1px solid rgba(255, 215, 0, 0.1);
 }
 
 .marquee-container {
