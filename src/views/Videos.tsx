@@ -84,10 +84,10 @@ function Videos() {
 
   return (
     <div className="app">
-      <Link to="/" className="back-home-btn">🏠 回首頁</Link>
+      <Link to="/videos" className="back-home-btn">⬅ 影片選單</Link>
       
       <header>
-        <h1>LNG Timeline</h1>
+        <h1>Timeline</h1>
         <p>The Complete Archive of LNG Workshop</p>
       </header>
 
