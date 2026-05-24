@@ -182,6 +182,27 @@ header p {
   transform: translateX(-50%);
   z-index: 10;
   box-shadow: 0 0 15px var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+/* Year Label Style */
+.timeline-dot.year-dot {
+  width: 70px;
+  height: 30px;
+  border-radius: 20px;
+  background: var(--primary-color);
+  color: black;
+  font-size: 0.85rem;
+  font-weight: 800;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  border: none;
+}
+
+.timeline-dot span {
+  pointer-events: none;
 }
 
 /* Modern Card */

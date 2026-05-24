@@ -49,7 +49,6 @@ function Videos() {
 
   const allVideos = videoData as Video[];
 
-  // 篩選邏輯：同時考慮搜尋字串與分類標籤
   const filteredVideos = useMemo(() => {
     return allVideos.filter(v => {
       const matchesSearch = v.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -131,27 +130,35 @@ function Videos() {
       <div className="timeline-container">
         <div className="timeline-line"></div>
         
-        {visibleVideos.map((video) => (
-          <div key={video.id} className="timeline-item">
-            <div className="timeline-dot"></div>
-            <div className="timeline-content">
-              <div className="video-card" onClick={() => setSelectedVideo(video)}>
-                <div className="video-thumbnail-container">
-                  <img src={video.thumbnail} alt={video.title} className="video-thumbnail" />
-                  <div className="video-duration-tag">{formatDuration(video.duration)}</div>
-                </div>
-                <div className="video-info">
-                  <span className="channel-badge">{video.channelTitle}</span>
-                  <h3>{video.title}</h3>
-                  <div className="video-meta">
-                    <span>{new Date(video.publishedAt).toLocaleDateString()}</span>
-                    <span>{formatViews(video.viewCount)}</span>
+        {visibleVideos.map((video, index) => {
+          const currentYear = new Date(video.publishedAt).getFullYear();
+          const prevYear = index > 0 ? new Date(visibleVideos[index - 1].publishedAt).getFullYear() : null;
+          const isNewYear = currentYear !== prevYear;
+
+          return (
+            <div key={video.id} className="timeline-item">
+              <div className={`timeline-dot ${isNewYear ? 'year-dot' : ''}`}>
+                {isNewYear && <span>{currentYear}</span>}
+              </div>
+              <div className="timeline-content">
+                <div className="video-card" onClick={() => setSelectedVideo(video)}>
+                  <div className="video-thumbnail-container">
+                    <img src={video.thumbnail} alt={video.title} className="video-thumbnail" />
+                    <div className="video-duration-tag">{formatDuration(video.duration)}</div>
+                  </div>
+                  <div className="video-info">
+                    <span className="channel-badge">{video.channelTitle}</span>
+                    <h3>{video.title}</h3>
+                    <div className="video-meta">
+                      <span>{new Date(video.publishedAt).toLocaleDateString()}</span>
+                      <span>{formatViews(video.viewCount)}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
         
         <div ref={loaderRef} style={{ height: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           {visibleCount < filteredVideos.length && <div className="loader">載入中...</div>}
