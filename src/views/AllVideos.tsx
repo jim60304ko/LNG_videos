@@ -17,17 +17,20 @@ interface Video {
 
 function AllVideos() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [visibleCount, setVisibleCount] = useState(24); // 網格佈局適合 3 或 4 的倍數
+  const [filterType, setFilterType] = useState('all'); // 'all', 'Highlight', 'Full'
+  const [visibleCount, setVisibleCount] = useState(24);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
 
   const allVideos = videoData as Video[];
 
   const filteredVideos = useMemo(() => {
-    return allVideos.filter(v => 
-      v.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [allVideos, searchTerm]);
+    return allVideos.filter(v => {
+      const matchesSearch = v.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesFilter = filterType === 'all' || v.category === filterType;
+      return matchesSearch && matchesFilter;
+    });
+  }, [allVideos, searchTerm, filterType]);
 
   const visibleVideos = filteredVideos.slice(0, visibleCount);
 
@@ -45,6 +48,13 @@ function AllVideos() {
     return () => observer.disconnect();
   }, [visibleCount, filteredVideos.length]);
 
+  const handleRandom = () => {
+    const randomIndex = Math.floor(Math.random() * filteredVideos.length);
+    if (filteredVideos.length > 0) {
+      setSelectedVideo(filteredVideos[randomIndex]);
+    }
+  };
+
   return (
     <div className="app">
       <Link to="/videos" className="back-home-btn">⬅ 影片選單</Link>
@@ -52,19 +62,44 @@ function AllVideos() {
       <header>
         <h1>All Videos</h1>
         <p>Complete Library Grid</p>
+        <p className="video-count">目前顯示: {filteredVideos.length} 部影片</p>
       </header>
 
       <div className="controls">
-        <input 
-          type="text" 
-          placeholder="搜尋影片..." 
-          className="search-input"
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setVisibleCount(24);
-          }}
-        />
+        <div className="controls-top">
+          <input 
+            type="text" 
+            placeholder="搜尋影片..." 
+            className="search-input"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setVisibleCount(24);
+            }}
+          />
+          <button className="btn-random" onClick={handleRandom}>🎲 Surprise Me!</button>
+        </div>
+
+        <div className="filter-group">
+          <button 
+            className={`filter-btn ${filterType === 'all' ? 'active' : ''}`}
+            onClick={() => { setFilterType('all'); setVisibleCount(24); }}
+          >
+            全部顯示
+          </button>
+          <button 
+            className={`filter-btn ${filterType === 'Highlight' ? 'active' : ''}`}
+            onClick={() => { setFilterType('Highlight'); setVisibleCount(24); }}
+          >
+            ✨ 精華
+          </button>
+          <button 
+            className={`filter-btn ${filterType === 'Full' ? 'active' : ''}`}
+            onClick={() => { setFilterType('Full'); setVisibleCount(24); }}
+          >
+            📼 完整存檔
+          </button>
+        </div>
       </div>
 
       <main style={{ 
@@ -91,6 +126,7 @@ function AllVideos() {
       
       <div ref={loaderRef} style={{ height: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         {visibleCount < filteredVideos.length && <div className="loader">載入中...</div>}
+        {filteredVideos.length === 0 && <p style={{ color: 'var(--text-muted)' }}>找不到符合條件的影片 😢</p>}
       </div>
 
       {selectedVideo && (

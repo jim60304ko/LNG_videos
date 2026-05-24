@@ -49,6 +49,7 @@ function Videos() {
 
   const allVideos = videoData as Video[];
 
+  // 篩選邏輯：同時考慮搜尋字串與分類標籤
   const filteredVideos = useMemo(() => {
     return allVideos.filter(v => {
       const matchesSearch = v.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -59,6 +60,7 @@ function Videos() {
 
   const visibleVideos = filteredVideos.slice(0, visibleCount);
 
+  // 無限捲動
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -87,6 +89,7 @@ function Videos() {
       <header>
         <h1>Timeline</h1>
         <p>The Complete Archive of LNG Workshop</p>
+        <p className="video-count">目前顯示: {filteredVideos.length} 部影片</p>
       </header>
 
       <div className="controls">
@@ -121,7 +124,7 @@ function Videos() {
             className={`filter-btn ${filterType === 'Full' ? 'active' : ''}`}
             onClick={() => { setFilterType('Full'); setVisibleCount(20); }}
           >
-            📼 完整存檔
+            實際存檔
           </button>
         </div>
       </div>
