@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import './Home.css';
 import lngLogo from '../assets/brand/lng_live.png';
+import iconTwitch from '../assets/icons/twitch.png';
+import iconFacebook from '../assets/icons/facebook.webp';
 
 const tiles = [
   { id: 'about', title: '關於', path: '/about' },
@@ -14,9 +16,22 @@ function Home() {
   return (
     <div className="home-container">
       <header className="home-header">
-        <div className="header-content">
-          <img src={lngLogo} alt="LNG Logo" className="lng-logo-img" />
-          <h1>LNG Live</h1>
+        <div className="header-wrapper">
+          <div className="header-content">
+            <img src={lngLogo} alt="LNG Logo" className="lng-logo-img" />
+            <h1>LNG Live</h1>
+          </div>
+          
+          <div className="official-links">
+            <a href="https://www.facebook.com/LNG.live.official" target="_blank" rel="noopener noreferrer" className="official-btn fb">
+              <img src={iconFacebook} alt="FB" />
+              Official Facebook
+            </a>
+            <a href="https://www.twitch.tv/lngliveofficial" target="_blank" rel="noopener noreferrer" className="official-btn twitch">
+              <img src={iconTwitch} alt="Twitch" />
+              Official Twitch
+            </a>
+          </div>
         </div>
       </header>
 
