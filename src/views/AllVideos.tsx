@@ -17,9 +17,10 @@ interface Video {
 
 function AllVideos() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterType, setFilterType] = useState('all'); // 'all', 'Highlight', 'Full'
+  const [filterType, setFilterType] = useState('all');
   const [visibleCount, setVisibleCount] = useState(24);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
 
   const allVideos = videoData as Video[];
@@ -33,6 +34,14 @@ function AllVideos() {
   }, [allVideos, searchTerm, filterType]);
 
   const visibleVideos = filteredVideos.slice(0, visibleCount);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -55,10 +64,22 @@ function AllVideos() {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="app">
       <Link to="/videos" className="back-home-btn">⬅ 影片選單</Link>
       
+      <button 
+        className={`back-to-top ${showBackToTop ? 'visible' : ''}`} 
+        onClick={scrollToTop}
+        title="回到頂端"
+      >
+        ↑
+      </button>
+
       <header>
         <h1>All Videos</h1>
         <p>Complete Library Grid</p>

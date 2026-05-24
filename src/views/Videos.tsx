@@ -42,14 +42,14 @@ function formatViews(views: string) {
 
 function Videos() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterType, setFilterType] = useState('all'); // 'all', 'Highlight', 'Full'
+  const [filterType, setFilterType] = useState('all');
   const [visibleCount, setVisibleCount] = useState(20);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [showBackToTop, setShowBackToTop] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
 
   const allVideos = videoData as Video[];
 
-  // 篩選邏輯：同時考慮搜尋字串與分類標籤
   const filteredVideos = useMemo(() => {
     return allVideos.filter(v => {
       const matchesSearch = v.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -60,7 +60,15 @@ function Videos() {
 
   const visibleVideos = filteredVideos.slice(0, visibleCount);
 
-  // 無限捲動
+  // 監聽捲動以顯示「回到頂端」按鈕
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -82,10 +90,22 @@ function Videos() {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="app">
       <Link to="/videos" className="back-home-btn">⬅ 影片選單</Link>
       
+      <button 
+        className={`back-to-top ${showBackToTop ? 'visible' : ''}`} 
+        onClick={scrollToTop}
+        title="回到頂端"
+      >
+        ↑
+      </button>
+
       <header>
         <h1>Timeline</h1>
         <p>The Complete Archive of LNG Workshop</p>
@@ -138,7 +158,6 @@ function Videos() {
           const currentMonth = date.getMonth() + 1;
           const displayDate = `${currentYear}/${currentMonth}`;
           
-          // 判斷是否為新的一年（用於高亮）
           const prevYear = index > 0 ? new Date(visibleVideos[index - 1].publishedAt).getFullYear() : null;
           const isNewYear = currentYear !== prevYear;
 
