@@ -2,7 +2,7 @@
 
 > 專為 LNG Workshop 打造的非官方歷史檔案庫與社群導航網站。
 
-![LNG Live Logo](src/data/img/lng_live.png)
+![LNG Live Logo](src/assets/brand/lng_live.png)
 
 ## 📌 專案簡介
 這是一個由粉絲建立的非官方入口網站，旨在整理 LNG Workshop 長達十多年的直播精華、完整存檔、核心成員社群資訊以及優質的粉絲剪輯師（藥頭）頻道。透過現代化的設計與直覺的導航，讓老粉絲回味、新粉絲快速入坑。
