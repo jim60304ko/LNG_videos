@@ -1,12 +1,19 @@
 import { Link } from 'react-router-dom';
 import '../App.css';
 
+// 匯入藥頭頭像
+import imgSunzusa from '../data/img/icon/Sunzusa.jpg';
+import imgTarzanwawa from '../data/img/icon/Tarzanwawa.jpg';
+import imgVegetableyee from '../data/img/icon/vegetableyee.jpg';
+import imgZydpingguo from '../data/img/icon/zydpingguo.jpg';
+import imgChenchung0209 from '../data/img/icon/chenchung0209.jpg';
+
 const clippers = [
-  { name: '玉子燒', url: 'https://youtube.com/@sunzusa_' },
-  { name: '泰山娃娃', url: 'https://youtube.com/@tarzanwawa' },
-  { name: '椰菜 vegetableyee', url: 'https://youtube.com/@a455106z' },
-  { name: '嘎特', url: 'https://youtube.com/@chenchung0209' },
-  { name: '自由的蘋果', url: 'https://youtube.com/@zydpingguo' }
+  { name: '玉子燒', url: 'https://youtube.com/@sunzusa_', img: imgSunzusa },
+  { name: '泰山娃娃', url: 'https://youtube.com/@tarzanwawa', img: imgTarzanwawa },
+  { name: '椰菜 vegetableyee', url: 'https://youtube.com/@a455106z', img: imgVegetableyee },
+  { name: '嘎特', url: 'https://youtube.com/@chenchung0209', img: imgChenchung0209 },
+  { name: '自由的蘋果', url: 'https://youtube.com/@zydpingguo', img: imgZydpingguo }
 ];
 
 function Yaotou() {
@@ -17,8 +24,8 @@ function Yaotou() {
         <h1>藥頭專區</h1>
         <p>Featured Clippers & Creators</p>
       </header>
-      <main style={{ maxWidth: '900px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+      <main style={{ maxWidth: '1000px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '25px', padding: '20px' }}>
           {clippers.map(clipper => (
             <a 
               key={clipper.name} 
@@ -28,17 +35,30 @@ function Yaotou() {
               style={{ 
                 textDecoration: 'none',
                 background: 'var(--card-bg)', 
-                borderRadius: '20px', 
-                padding: '30px', 
+                borderRadius: '30px', 
+                padding: '40px 20px', 
                 border: '1px solid rgba(255,215,0,0.1)',
                 transition: 'var(--transition)',
-                display: 'block'
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center'
               }}
               className="clipper-card"
             >
-              <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>💊</div>
-              <h2 style={{ color: 'var(--primary-color)', fontSize: '1.5rem' }}>{clipper.name}</h2>
-              <p style={{ color: 'var(--text-muted)', marginTop: '10px', fontSize: '0.9rem' }}>前往 YouTube 頻道</p>
+              <div style={{ 
+                width: '120px', 
+                height: '120px', 
+                borderRadius: '50%', 
+                overflow: 'hidden', 
+                marginBottom: '20px',
+                border: '3px solid var(--primary-color)',
+                boxShadow: '0 0 15px rgba(255, 215, 0, 0.2)'
+              }}>
+                <img src={clipper.img} alt={clipper.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <h2 style={{ color: 'var(--primary-color)', fontSize: '1.4rem', marginBottom: '10px' }}>{clipper.name}</h2>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>前往 YouTube 頻道</p>
             </a>
           ))}
         </div>
@@ -46,9 +66,9 @@ function Yaotou() {
 
       <style>{`
         .clipper-card:hover {
-          transform: translateY(-5px);
+          transform: translateY(-10px);
           border-color: var(--primary-color);
-          box-shadow: 0 10px 20px rgba(255, 215, 0, 0.1);
+          box-shadow: 0 15px 30px rgba(255, 215, 0, 0.15);
           background: var(--card-hover-bg);
         }
       `}</style>
