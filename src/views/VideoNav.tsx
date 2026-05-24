@@ -29,21 +29,15 @@ function VideoNav() {
     <div className="home-container">
       <Link to="/" className="back-home-btn">🏠 回首頁</Link>
       
-      <header className="home-header">
-        <div className="header-content">
-          <h1>影片瀏覽</h1>
-        </div>
-      </header>
-
-      <main className="home-grid" style={{ maxWidth: '800px', marginBottom: '100px' }}>
+      <main className="home-grid" style={{ maxWidth: '800px' }}>
         <Link to="/videos/all" className="home-tile">
           <div className="tile-content">
-            <span>All</span>
+            <span>所有影片</span>
           </div>
         </Link>
         <Link to="/videos/timeline" className="home-tile">
           <div className="tile-content">
-            <span>Timeline</span>
+            <span>時間軸</span>
           </div>
         </Link>
       </main>
