@@ -13,62 +13,65 @@ const members = [
   {
     name: '六嘆 (6tan)',
     img: img6tan,
-    links: {
-      twitch: 'https://www.twitch.tv/sixwong',
-      youtube: 'https://youtube.com/@6tanchannel',
-      facebook: 'https://www.facebook.com/6tantan',
-      instagram: 'https://www.instagram.com/6tan'
-    }
+    socials: [
+      { platform: 'Twitch', url: 'https://www.twitch.tv/sixwong' },
+      { platform: 'YT 生活頻道', url: 'https://youtube.com/@sixwong' },
+      { platform: 'YT 遊戲精華', url: 'https://youtube.com/@6tanchannel' },
+      { platform: 'YT VOD頻道', url: 'https://youtube.com/@6tanvod' },
+      { platform: 'Facebook', url: 'https://www.facebook.com/6tantan' },
+      { platform: 'Instagram', url: 'https://www.instagram.com/6tan' },
+      { platform: 'X', url: 'https://x.com/6tan' }
+    ]
   },
   {
     name: '鳥屎 (Niaws)',
     img: imgNiaws,
-    links: {
-      twitch: 'https://www.twitch.tv/scspple7545',
-      youtube: 'https://youtube.com/@niaws-5352',
-      facebook: 'https://www.facebook.com/LNGniaws/',
-      instagram: 'https://www.instagram.com/scspple7545/'
-    }
+    socials: [
+      { platform: 'Twitch', url: 'https://www.twitch.tv/scspple7545' },
+      { platform: 'YouTube', url: 'https://youtube.com/@niaws-5352' },
+      { platform: 'Facebook', url: 'https://www.facebook.com/LNGniaws/' },
+      { platform: 'Instagram', url: 'https://www.instagram.com/scspple7545/' }
+    ]
   },
   {
     name: '老王 (WannaSinging)',
     img: imgWannasinging,
-    links: {
-      twitch: 'https://www.twitch.tv/wannasinging',
-      youtube: 'https://www.youtube.com/@wannasinging',
-      facebook: 'https://www.facebook.com/WannaSinging',
-      instagram: 'https://www.instagram.com/wannasinging_retry/'
-    }
+    socials: [
+      { platform: 'Twitch', url: 'https://www.twitch.tv/wannasinging' },
+      { platform: 'YouTube', url: 'https://www.youtube.com/@wannasinging' },
+      { platform: 'Facebook', url: 'https://www.facebook.com/WannaSinging' },
+      { platform: 'Instagram', url: 'https://www.instagram.com/wannasinging_retry/' }
+    ]
   },
   {
     name: 'Leggy',
     img: imgLeggy,
-    links: {
-      twitch: 'https://www.twitch.tv/rekileggy',
-      youtube: 'https://youtube.com/@reki305',
-      facebook: 'https://www.facebook.com/LeggyReki/',
-      instagram: 'https://www.instagram.com/ym78305/'
-    }
+    socials: [
+      { platform: 'Twitch', url: 'https://www.twitch.tv/rekileggy' },
+      { platform: 'YouTube', url: 'https://youtube.com/@reki305' },
+      { platform: 'Facebook', url: 'https://www.facebook.com/LeggyReki/' },
+      { platform: 'Instagram', url: 'https://www.instagram.com/ym78305/' }
+    ]
   },
   {
     name: '小六 (Mabushii)',
     img: imgMabushii,
-    links: {
-      twitch: 'https://www.twitch.tv/mabushii0611',
-      youtube: 'https://www.youtube.com/@wildboy0611',
-      facebook: 'https://www.facebook.com/Mabushii0611/',
-      instagram: 'https://www.instagram.com/mabushii0611/'
-    }
+    socials: [
+      { platform: 'Twitch', url: 'https://www.twitch.tv/mabushii0611' },
+      { platform: 'YouTube', url: 'https://www.youtube.com/@wildboy0611' },
+      { platform: 'Facebook', url: 'https://www.facebook.com/Mabushii0611/' },
+      { platform: 'Instagram', url: 'https://www.instagram.com/mabushii0611/' }
+    ]
   },
   {
     name: '八毛 (Bamow)',
     img: imgBamow,
-    links: {
-      twitch: 'https://www.twitch.tv/bamow',
-      youtube: 'https://www.youtube.com/@Bamowmow',
-      facebook: 'https://www.facebook.com/LngBamow/',
-      instagram: 'https://www.instagram.com/bamowmow/'
-    }
+    socials: [
+      { platform: 'Twitch', url: 'https://www.twitch.tv/bamow' },
+      { platform: 'YouTube', url: 'https://www.youtube.com/@Bamowmow' },
+      { platform: 'Facebook', url: 'https://www.facebook.com/LngBamow/' },
+      { platform: 'Instagram', url: 'https://www.instagram.com/bamowmow/' }
+    ]
   }
 ];
 
@@ -88,10 +91,26 @@ function Members() {
               <img src={member.img} alt={member.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <h2 style={{ color: 'var(--primary-color)', marginBottom: '15px' }}>{member.name}</h2>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', flexWrap: 'wrap' }}>
-              {Object.entries(member.links).map(([platform, url]) => (
-                <a key={platform} href={url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', textDecoration: 'none', textTransform: 'capitalize', fontSize: '0.9rem', border: '1px solid #333', padding: '4px 10px', borderRadius: '15px', transition: 'var(--transition)' }} className="member-link">
-                  {platform}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+              {member.socials.map(social => (
+                <a 
+                  key={social.url} 
+                  href={social.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  style={{ 
+                    color: 'var(--text-muted)', 
+                    textDecoration: 'none', 
+                    fontSize: '0.85rem', 
+                    border: '1px solid #333', 
+                    padding: '6px 12px', 
+                    borderRadius: '20px', 
+                    transition: 'var(--transition)',
+                    backgroundColor: 'rgba(255,255,255,0.02)'
+                  }} 
+                  className="member-link"
+                >
+                  {social.platform}
                 </a>
               ))}
             </div>
