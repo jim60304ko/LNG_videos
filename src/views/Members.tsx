@@ -27,6 +27,7 @@ const platformIcons: { [key: string]: string } = {
   'X': iconX
 };
 
+// 按照指定順序排列：六嘆、鳥屎、老王、Leggy、八毛、小六
 const members = [
   {
     name: '六嘆 (6tan)',
@@ -72,16 +73,6 @@ const members = [
     ]
   },
   {
-    name: '小六 (Mabushii)',
-    img: imgMabushii,
-    socials: [
-      { platform: 'Twitch', url: 'https://www.twitch.tv/mabushii0611' },
-      { platform: 'YouTube', url: 'https://youtube.com/@wildboy0611' },
-      { platform: 'Facebook', url: 'https://www.facebook.com/Mabushii0611/' },
-      { platform: 'Instagram', url: 'https://www.instagram.com/mabushii0611/' }
-    ]
-  },
-  {
     name: '八毛 (Bamow)',
     img: imgBamow,
     socials: [
@@ -89,6 +80,16 @@ const members = [
       { platform: 'YouTube', url: 'https://www.youtube.com/@Bamowmow' },
       { platform: 'Facebook', url: 'https://www.facebook.com/LngBamow/' },
       { platform: 'Instagram', url: 'https://www.instagram.com/bamowmow/' }
+    ]
+  },
+  {
+    name: '小六 (Mabushii)',
+    img: imgMabushii,
+    socials: [
+      { platform: 'Twitch', url: 'https://www.twitch.tv/mabushii0611' },
+      { platform: 'YouTube', url: 'https://youtube.com/@wildboy0611' },
+      { platform: 'Facebook', url: 'https://www.facebook.com/Mabushii0611/' },
+      { platform: 'Instagram', url: 'https://www.instagram.com/mabushii0611/' }
     ]
   }
 ];
@@ -102,7 +103,14 @@ function Members() {
         <p>The Core Workshop Members</p>
       </header>
       
-      <main style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', padding: '20px' }}>
+      <main style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(3, 1fr)', 
+        gap: '30px', 
+        padding: '20px',
+        maxWidth: '1200px',
+        margin: '0 auto'
+      }} className="members-grid">
         {members.map(member => (
           <div key={member.name} style={{ background: 'var(--card-bg)', borderRadius: '30px', padding: '30px', border: '1px solid rgba(255,215,0,0.1)', textAlign: 'center', transition: 'var(--transition)' }} className="member-card">
             <div style={{ width: '150px', height: '150px', margin: '0 auto 20px', borderRadius: '50%', overflow: 'hidden', border: '3px solid var(--primary-color)', boxShadow: '0 0 15px rgba(255, 215, 0, 0.2)' }}>
@@ -157,6 +165,16 @@ function Members() {
           border-color: var(--primary-color);
           background: rgba(255, 215, 0, 0.05);
           transform: scale(1.05);
+        }
+        @media (max-width: 1024px) {
+          .members-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .members-grid {
+            grid-template-columns: 1fr !important;
+          }
         }
       `}</style>
     </div>
