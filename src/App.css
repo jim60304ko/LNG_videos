@@ -134,6 +134,10 @@ header p {
   cursor: pointer;
 }
 
+.video-card * {
+  cursor: pointer; /* 強制所有子元素（文字、標籤等）都使用手型游標 */
+}
+
 .video-card:hover {
   transform: translateY(-8px);
   background: var(--card-hover-bg);
