@@ -25,7 +25,7 @@ jobs:
       - name: Fetch latest videos
         env:
           VITE_YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-        run: node scripts/fetch_videos.js
+        run: node scripts/fetch_videos.cjs
 
       - name: Commit and push if changed
         run: |
