@@ -1,0 +1,116 @@
+.home-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background-color: var(--bg-color);
+}
+
+.home-header {
+  margin-bottom: 60px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.lng-logo-placeholder {
+  width: 80px;
+  height: 80px;
+  background: var(--primary-color);
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.home-header h1 {
+  font-size: 3.5rem;
+  color: var(--primary-color);
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+/* Grid Layout */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 250px;
+  gap: 25px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.home-tile {
+  background: var(--card-bg);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 30px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.tile-content {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  transition: var(--transition);
+  z-index: 2;
+}
+
+/* Hover Effects */
+.home-tile:hover {
+  background: var(--primary-color);
+  transform: scale(1.05);
+  box-shadow: 0 10px 40px rgba(255, 215, 0, 0.4);
+  border-color: var(--primary-color);
+}
+
+.home-tile:hover .tile-content {
+  color: black;
+  transform: scale(1.1);
+}
+
+/* Custom Tile Sizes */
+.tile-videos {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.tile-members {
+  grid-row: span 2;
+}
+
+.tile-about {
+  grid-column: span 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 200px;
+  }
+  
+  .tile-videos, .tile-members {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+  
+  .home-header h1 {
+    font-size: 2.5rem;
+  }
+}
