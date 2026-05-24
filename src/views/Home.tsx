@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Home.css';
+import lngLogo from '../data/img/lng_live.png';
 
 const tiles = [
   { id: 'about', title: '關於', path: '/about' },
@@ -14,7 +15,7 @@ function Home() {
     <div className="home-container">
       <header className="home-header">
         <div className="header-content">
-          <div className="lng-logo-placeholder">LNG</div> 
+          <img src={lngLogo} alt="LNG Logo" className="lng-logo-img" />
           <h1>LNG Live</h1>
         </div>
       </header>
