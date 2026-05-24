@@ -9,6 +9,24 @@ import imgLeggy from '../data/img/leggy.jpg';
 import imgMabushii from '../data/img/mabushii.jpg';
 import imgBamow from '../data/img/bamow.jpg';
 
+// 匯入 Icon
+import iconTwitch from '../data/img/icon/twitch.png';
+import iconYoutube from '../data/img/icon/youtube.webp';
+import iconFacebook from '../data/img/icon/facebook.webp';
+import iconInstagram from '../data/img/icon/ig.webp';
+import iconX from '../data/img/icon/x.webp';
+
+const platformIcons: { [key: string]: string } = {
+  'Twitch': iconTwitch,
+  'YouTube': iconYoutube,
+  'YT 生活頻道': iconYoutube,
+  'YT 遊戲精華': iconYoutube,
+  'YT VOD頻道': iconYoutube,
+  'Facebook': iconFacebook,
+  'Instagram': iconInstagram,
+  'X': iconX
+};
+
 const members = [
   {
     name: '六嘆 (6tan)',
@@ -58,7 +76,7 @@ const members = [
     img: imgMabushii,
     socials: [
       { platform: 'Twitch', url: 'https://www.twitch.tv/mabushii0611' },
-      { platform: 'YouTube', url: 'https://www.youtube.com/@wildboy0611' },
+      { platform: 'YouTube', url: 'https://youtube.com/@wildboy0611' },
       { platform: 'Facebook', url: 'https://www.facebook.com/Mabushii0611/' },
       { platform: 'Instagram', url: 'https://www.instagram.com/mabushii0611/' }
     ]
@@ -103,13 +121,23 @@ function Members() {
                     textDecoration: 'none', 
                     fontSize: '0.85rem', 
                     border: '1px solid #333', 
-                    padding: '6px 12px', 
+                    padding: '8px 14px', 
                     borderRadius: '20px', 
                     transition: 'var(--transition)',
-                    backgroundColor: 'rgba(255,255,255,0.02)'
+                    backgroundColor: 'rgba(255,255,255,0.02)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
                   }} 
                   className="member-link"
                 >
+                  {platformIcons[social.platform] && (
+                    <img 
+                      src={platformIcons[social.platform]} 
+                      alt={social.platform} 
+                      style={{ width: '18px', height: '18px', objectFit: 'contain' }} 
+                    />
+                  )}
                   {social.platform}
                 </a>
               ))}
@@ -128,6 +156,7 @@ function Members() {
           color: var(--primary-color);
           border-color: var(--primary-color);
           background: rgba(255, 215, 0, 0.05);
+          transform: scale(1.05);
         }
       `}</style>
     </div>
