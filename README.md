@@ -12,58 +12,41 @@
 ## ✨ 核心功能
 
 *   **🎛️ 現代化主頁儀表板**
-    *   採用「大網格磁磚」佈局，提供流暢的懸浮互動體驗與極簡深色視覺風格。
-*   **🕰️ 歷史時間軸導航**
-    *   整合「LNG Workshop」官方頻道與「LNG 精華頻道 (@lng6121)」。
-    *   時間軸左右交錯顯示，支援無限捲動 (Infinite Scroll) 確保極速載入。
-*   **🔍 即時篩選與搜尋**
-    *   支援關鍵字搜尋。
-    *   膠囊式分類按鈕 (Filter Chips)：快速切換「精華」與「完整存檔」。
-    *   **Surprise Me!**：隨機播放功能，拯救選擇困難症。
+    *   採用「大網格橫向磁磚」佈局，提供流暢的懸浮互動體驗與極簡設計。
+    *   快速連結至官方 Facebook 與 Twitch 社群。
+
+*   **🌓 雙色主題切換**
+    *   **深/淺色模式**：具備時尚的滑動切換開關 (Sliding Toggle)。
+    *   **智慧記憶**：自動儲存主題偏好於瀏覽器 (LocalStorage)。
+
+*   **📽️ 多樣化影片視圖**
+    *   **網格模式 (All Videos)**：以標準網格形式快速瀏覽所有 700+ 部影片。
+    *   **時間軸模式 (Timeline)**：具備精確到「年份/月份」的動態標籤導航，直觀感受 LNG 的歷史脈絡。
+
+*   **🔍 強大搜尋與篩選系統**
+    *   **即時搜尋**：輸入關鍵字即刻過濾標題。
+    *   **膠囊篩選鈕**：一鍵切換「精華」與「實際存檔」。
+    *   **動態計數器**：標題下方即時顯示當前篩選後的影片總數。
+    *   **🎲 Surprise Me!**：隨機播放功能，從當前篩選列表中抽籤影片。
+
 *   **👤 成員與藥頭名片**
-    *   彙整 6 位核心成員的所有官方社群連結（Twitch, YouTube, FB, IG 等）。
-    *   專屬「藥頭專區」展示優質的粉絲剪輯師頻道。
+    *   **核心成員**：展示 6 位成員（六嘆、鳥屎、老王、Leggy、八毛、小六）的互動名片，整合所有社群連結與 Icon。
+    *   **藥頭專區**：彙整優質的粉絲剪輯師頻道，展示專屬頭像與連結。
+
+*   **📱 全方位響應式佈局**
+    *   針對手機與平板進行深度優化，確保在各種螢幕尺寸下都能擁有最佳的瀏覽與播放體驗。
+
 *   **🤖 全自動化數據更新**
-    *   透過 GitHub Actions，每月自動從 YouTube API 抓取最新影片與點閱率，確保網站永遠保持最新狀態，無需手動維護。
+    *   透過 GitHub Actions，每月自動從 YouTube API 抓取最新影片與點閱率，確保網站永遠保持最新狀態。
 
 ## 🛠️ 技術架構
 
 *   **前端框架**: React 19 + TypeScript + Vite
-*   **路由管理**: React Router DOM (HashRouter for GitHub Pages)
+*   **路由管理**: React Router DOM (HashRouter)
 *   **視覺設計**: Vanilla CSS (Modern Dark Style / Glassmorphism)
 *   **資料引擎**: Node.js + Axios + YouTube Data API v3
 *   **自動化 CI/CD**: GitHub Actions
 *   **網頁託管**: GitHub Pages
-
-## 🚀 本地開發指南
-
-如果你想在本地運行或修改這個專案：
-
-### 1. 安裝依賴
-```bash
-npm install
-```
-
-### 2. 環境變數設定
-在專案根目錄建立 `.env.local` 檔案，並填入你的 YouTube API Key：
-```env
-VITE_YOUTUBE_API_KEY=你的_API_KEY
-```
-
-### 3. 抓取最新資料 (可選)
-```bash
-node scripts/fetch_videos.cjs
-```
-
-### 4. 啟動開發伺服器
-```bash
-npm run dev
-```
-
-### 5. 部署到 GitHub Pages
-```bash
-npm run deploy
-```
 
 ## 📜 聲明
 本網站為粉絲基於熱愛所製作之非官方專案。網站內所有影片、圖像之版權均屬於 LNG Workshop 原團隊及相關創作者所有。
