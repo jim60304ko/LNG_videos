@@ -42,20 +42,25 @@ function formatViews(views: string) {
 
 function Videos() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterType, setFilterType] = useState('all'); // 'all', 'Highlight', 'Full'
   const [visibleCount, setVisibleCount] = useState(20);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
 
   const allVideos = videoData as Video[];
 
+  // 篩選邏輯：同時考慮搜尋字串與分類標籤
   const filteredVideos = useMemo(() => {
-    return allVideos.filter(v => 
-      v.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [allVideos, searchTerm]);
+    return allVideos.filter(v => {
+      const matchesSearch = v.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesFilter = filterType === 'all' || v.category === filterType;
+      return matchesSearch && matchesFilter;
+    });
+  }, [allVideos, searchTerm, filterType]);
 
   const visibleVideos = filteredVideos.slice(0, visibleCount);
 
+  // 無限捲動
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -71,8 +76,10 @@ function Videos() {
   }, [visibleCount, filteredVideos.length]);
 
   const handleRandom = () => {
-    const randomIndex = Math.floor(Math.random() * allVideos.length);
-    setSelectedVideo(allVideos[randomIndex]);
+    const randomIndex = Math.floor(Math.random() * filteredVideos.length);
+    if (filteredVideos.length > 0) {
+      setSelectedVideo(filteredVideos[randomIndex]);
+    }
   };
 
   return (
@@ -85,17 +92,40 @@ function Videos() {
       </header>
 
       <div className="controls">
-        <input 
-          type="text" 
-          placeholder="搜尋影片..." 
-          className="search-input"
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setVisibleCount(20);
-          }}
-        />
-        <button className="btn-random" onClick={handleRandom}>🎲 Surprise Me!</button>
+        <div className="controls-top">
+          <input 
+            type="text" 
+            placeholder="搜尋影片..." 
+            className="search-input"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setVisibleCount(20);
+            }}
+          />
+          <button className="btn-random" onClick={handleRandom}>🎲 Surprise Me!</button>
+        </div>
+        
+        <div className="filter-group">
+          <button 
+            className={`filter-btn ${filterType === 'all' ? 'active' : ''}`}
+            onClick={() => { setFilterType('all'); setVisibleCount(20); }}
+          >
+            全部顯示
+          </button>
+          <button 
+            className={`filter-btn ${filterType === 'Highlight' ? 'active' : ''}`}
+            onClick={() => { setFilterType('Highlight'); setVisibleCount(20); }}
+          >
+            ✨ 精華
+          </button>
+          <button 
+            className={`filter-btn ${filterType === 'Full' ? 'active' : ''}`}
+            onClick={() => { setFilterType('Full'); setVisibleCount(20); }}
+          >
+            📼 完整存檔
+          </button>
+        </div>
       </div>
 
       <div className="timeline-container">
@@ -125,6 +155,7 @@ function Videos() {
         
         <div ref={loaderRef} style={{ height: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           {visibleCount < filteredVideos.length && <div className="loader">載入中...</div>}
+          {filteredVideos.length === 0 && <p style={{ color: 'var(--text-muted)' }}>找不到符合條件的影片 😢</p>}
         </div>
       </div>
 
