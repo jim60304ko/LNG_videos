@@ -50,7 +50,6 @@ function VideoNav() {
 
       {/* 影片跑馬燈 */}
       <div className="marquee-section">
-        <h3 className="marquee-title">✨ 隨機挖寶</h3>
         <div className="marquee-container">
           <div className="marquee-content">
             {/* 複製兩份以實現無縫滾動 */}

@@ -1,19 +1,13 @@
 .marquee-section {
-  width: 100%;
+  width: 100vw; /* 佔滿全寬 */
+  margin-left: calc(-50vw + 50%); /* 修正全寬偏移 */
   overflow: hidden;
-  padding: 40px 0;
+  padding: 20px 0; /* 縮小內距讓位置更往上 */
+  margin-top: -40px; /* 向上移動 */
   position: relative;
   background: rgba(255, 215, 0, 0.03);
   border-top: 1px solid rgba(255, 215, 0, 0.1);
   border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-}
-
-.marquee-title {
-  text-align: center;
-  margin-bottom: 30px;
-  color: var(--primary-color);
-  font-size: 1.5rem;
-  letter-spacing: 2px;
 }
 
 .marquee-container {
