@@ -11,10 +11,10 @@ function Community() {
       </header>
       <main style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
         <div style={{ background: 'var(--card-bg)', borderRadius: '30px', padding: '50px', border: '1px solid rgba(255,215,0,0.2)' }}>
-          <h2 style={{ color: 'var(--primary-color)', marginBottom: '20px' }}>LNG 粉絲自創社群</h2>
+          <h2 style={{ color: 'var(--primary-color)', marginBottom: '20px' }}>LNG Live Fansclub株式會社</h2>
           <p style={{ marginBottom: '40px', lineHeight: '1.8' }}>
             這是由粉絲們自發組織的 Facebook 社團，<br />
-            是目前最活躍的 LNG 討論社群之一。
+            也是目前最活躍的 LNG 討論社群。
           </p>
           
           <a 
@@ -36,7 +36,7 @@ function Community() {
             }}
             className="community-btn"
           >
-            <span>加入 Facebook 粉絲社團</span>
+            <span>前往 LNG Live Fansclub株式會社</span>
           </a>
         </div>
       </main>
