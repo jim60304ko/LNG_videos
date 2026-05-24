@@ -3,10 +3,10 @@
   max-width: 1200px;
   overflow: hidden;
   padding: 40px 0;
-  margin-top: 20px; /* 稍微移下，填補移除文字後的空洞 */
+  margin-top: 0; /* 移除原本手動設定的 margin */
   position: relative;
   background: rgba(255, 215, 0, 0.03);
-  border-radius: 30px; /* 增加圓角符合整體風格 */
+  border-radius: 30px;
   border: 1px solid rgba(255, 215, 0, 0.1);
 }
 
