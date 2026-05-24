@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 
 // 匯入藥頭頭像
-import imgSunzusa from '../data/img/icon/Sunzusa.jpg';
-import imgTarzanwawa from '../data/img/icon/Tarzanwawa.jpg';
-import imgVegetableyee from '../data/img/icon/vegetableyee.jpg';
-import imgZydpingguo from '../data/img/icon/zydpingguo.jpg';
-import imgChenchung0209 from '../data/img/icon/chenchung0209.jpg';
+import imgSunzusa from '../assets/clippers/Sunzusa.jpg';
+import imgTarzanwawa from '../assets/clippers/Tarzanwawa.jpg';
+import imgVegetableyee from '../assets/clippers/vegetableyee.jpg';
+import imgZydpingguo from '../assets/clippers/zydpingguo.jpg';
+import imgChenchung0209 from '../assets/clippers/chenchung0209.jpg';
 
 const clippers = [
   { name: '玉子燒', url: 'https://youtube.com/@sunzusa_', img: imgSunzusa },

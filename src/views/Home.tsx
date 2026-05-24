@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Home.css';
-import lngLogo from '../data/img/lng_live.png';
+import lngLogo from '../assets/brand/lng_live.png';
 
 const tiles = [
   { id: 'about', title: '關於', path: '/about' },

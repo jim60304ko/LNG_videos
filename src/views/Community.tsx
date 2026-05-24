@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import '../App.css';
-import imgKetchupfrog from '../data/img/icon/ketchupfrog7788.jpg';
+import imgKetchupfrog from '../assets/icons/ketchupfrog7788.jpg';
 
 function Community() {
   return (

@@ -2,19 +2,19 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 
 // 匯入頭像
-import img6tan from '../data/img/6tan.jpg';
-import imgNiaws from '../data/img/niaws.jpg';
-import imgWannasinging from '../data/img/wannasinging.png';
-import imgLeggy from '../data/img/leggy.jpg';
-import imgMabushii from '../data/img/mabushii.jpg';
-import imgBamow from '../data/img/bamow.jpg';
+import img6tan from '../assets/avatars/6tan.jpg';
+import imgNiaws from '../assets/avatars/niaws.jpg';
+import imgWannasinging from '../assets/avatars/wannasinging.png';
+import imgLeggy from '../assets/avatars/leggy.jpg';
+import imgMabushii from '../assets/avatars/mabushii.jpg';
+import imgBamow from '../assets/avatars/bamow.jpg';
 
 // 匯入 Icon
-import iconTwitch from '../data/img/icon/twitch.png';
-import iconYoutube from '../data/img/icon/youtube.webp';
-import iconFacebook from '../data/img/icon/facebook.webp';
-import iconInstagram from '../data/img/icon/ig.webp';
-import iconX from '../data/img/icon/x.webp';
+import iconTwitch from '../assets/icons/twitch.png';
+import iconYoutube from '../assets/icons/youtube.webp';
+import iconFacebook from '../assets/icons/facebook.webp';
+import iconInstagram from '../assets/icons/ig.webp';
+import iconX from '../assets/icons/x.webp';
 
 const platformIcons: { [key: string]: string } = {
   'Twitch': iconTwitch,
