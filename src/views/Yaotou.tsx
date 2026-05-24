@@ -3,7 +3,7 @@ import '../App.css';
 
 const clippers = [
   { name: '玉子燒', url: 'https://youtube.com/@sunzusa_' },
-  { name: '泰山阿華', url: 'https://youtube.com/@tarzanwawa' },
+  { name: '泰山娃娃', url: 'https://youtube.com/@tarzanwawa' },
   { name: '椰菜 vegetableyee', url: 'https://youtube.com/@a455106z' },
   { name: '嘎特', url: 'https://youtube.com/@chenchung0209' },
   { name: '自由的蘋果', url: 'https://youtube.com/@zydpingguo' }
