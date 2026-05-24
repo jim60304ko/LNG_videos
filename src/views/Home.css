@@ -8,51 +8,48 @@
 }
 
 .home-header {
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center; /* 水平置中 */
 }
 
 .header-content {
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: center; /* 內容物置中 */
+  gap: 25px;
 }
 
-.lng-logo-placeholder {
-  width: 80px;
-  height: 80px;
-  background: var(--primary-color);
-  color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-size: 1.5rem;
+.lng-logo-img {
+  width: 100px; /* 稍微放大頭圖 */
+  height: 100px;
+  object-fit: contain;
   border-radius: 20px;
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
 }
 
 .home-header h1 {
-  font-size: 3.5rem;
+  font-size: 4.5rem; /* 放大標題 */
   color: var(--primary-color);
   margin: 0;
-  letter-spacing: -1px;
+  letter-spacing: -2px;
 }
 
 /* Grid Layout - Changed to Horizontal Row */
 .home-grid {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 30px; /* 增加間距 */
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px; /* 增加最大寬度讓卡片有空間變大 */
 }
 
 .home-tile {
   background: var(--card-bg);
   border: 2px solid rgba(255, 215, 0, 0.3);
-  border-radius: 30px;
+  border-radius: 40px; /* 更圓潤 */
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -60,13 +57,14 @@
   transition: var(--transition);
   position: relative;
   overflow: hidden;
-  flex: 1; /* 每張卡片等寬 */
-  height: 250px;
+  flex: 1; 
+  height: 320px; /* 增加卡片高度 */
+  min-width: 180px; /* 確保卡片不會縮得太小 */
 }
 
 .tile-content {
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: 2.2rem; /* 放大卡片文字 */
+  font-weight: 800;
   color: var(--primary-color);
   transition: var(--transition);
   z-index: 2;
