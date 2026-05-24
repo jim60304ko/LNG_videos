@@ -7,11 +7,13 @@ import About from './views/About';
 import Members from './views/Members';
 import Community from './views/Community';
 import Yaotou from './views/Yaotou';
+import { ThemeToggle } from './components/ThemeToggle';
 import './App.css';
 
 function App() {
   return (
     <Router>
+      <ThemeToggle />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/videos" element={<VideoNav />} />
