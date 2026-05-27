@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 import videoData from '../data/videos.json';
-import { Video } from '../types/video';
+import type { Video } from '../types/video';
 import { VideoCard } from '../components/VideoCard';
 import { VideoModal } from '../components/VideoModal';
 import { useFavorites } from '../hooks/useFavorites';

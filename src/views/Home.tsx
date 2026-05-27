@@ -5,7 +5,7 @@ import lngLogo from '../assets/brand/lng_live.png';
 import iconTwitch from '../assets/icons/twitch.png';
 import iconFacebook from '../assets/icons/facebook.webp';
 import videoData from '../data/videos.json';
-import { Video } from '../types/video';
+import type { Video } from '../types/video';
 import { VideoCard } from '../components/VideoCard';
 import { VideoModal } from '../components/VideoModal';
 import { useFavorites } from '../hooks/useFavorites';

@@ -4,8 +4,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
   BarChart, Bar, PieChart, Pie, Cell, Legend 
 } from 'recharts';
-import videoData from '../data/videos.json';
-import { Video } from '../types/video';
+import type { Video } from '../types/video';
 import './Analytics.css';
 
 const COLORS = ['#FFD700', '#FF8C00', '#FF4500', '#FF1493', '#ADFF2F', '#00CED1'];
@@ -98,7 +97,7 @@ function Analytics() {
                   dataKey="value"
                   label
                 >
-                  {stats.categoryData.map((entry, index) => (
+                  {stats.categoryData.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
@@ -121,7 +120,7 @@ function Analytics() {
                 <YAxis dataKey="name" type="category" stroke="#a0a0a0" width={150} />
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#1a1a1a', border: '1px solid #FFD700' }}
-                  formatter={(value: number) => [value.toLocaleString() + ' 次觀看', '觀看數']}
+                  formatter={(value: any) => [Number(value).toLocaleString() + ' 次觀看', '觀看數']}
                 />
                 <Bar dataKey="views" fill="#FFD700" radius={[0, 5, 5, 0]} />
               </BarChart>
