@@ -4,6 +4,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
   BarChart, Bar, PieChart, Pie, Cell, Legend 
 } from 'recharts';
+import videoData from '../data/videos.json';
 import type { Video } from '../types/video';
 import './Analytics.css';
 
