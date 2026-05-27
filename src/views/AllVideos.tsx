@@ -2,26 +2,20 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 import videoData from '../data/videos.json';
-
-interface Video {
-  id: string;
-  title: string;
-  description: string;
-  publishedAt: string;
-  thumbnail: string;
-  viewCount: string;
-  duration: string;
-  category: string;
-  channelTitle: string;
-}
+import { Video } from '../types/video';
+import { VideoCard } from '../components/VideoCard';
+import { VideoModal } from '../components/VideoModal';
+import { useFavorites } from '../hooks/useFavorites';
 
 function AllVideos() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('all');
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [visibleCount, setVisibleCount] = useState(24);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
+  const { isFavorite, toggleFavorite } = useFavorites();
 
   const allVideos = videoData as Video[];
 
@@ -29,9 +23,10 @@ function AllVideos() {
     return allVideos.filter(v => {
       const matchesSearch = v.title.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesFilter = filterType === 'all' || v.category === filterType;
-      return matchesSearch && matchesFilter;
+      const matchesFavorites = !showFavoritesOnly || isFavorite(v.id);
+      return matchesSearch && matchesFilter && matchesFavorites;
     });
-  }, [allVideos, searchTerm, filterType]);
+  }, [allVideos, searchTerm, filterType, showFavoritesOnly, isFavorite]);
 
   const visibleVideos = filteredVideos.slice(0, visibleCount);
 
@@ -103,22 +98,29 @@ function AllVideos() {
 
         <div className="filter-group">
           <button 
-            className={`filter-btn ${filterType === 'all' ? 'active' : ''}`}
-            onClick={() => { setFilterType('all'); setVisibleCount(24); }}
+            className={`filter-btn ${filterType === 'all' && !showFavoritesOnly ? 'active' : ''}`}
+            onClick={() => { setFilterType('all'); setShowFavoritesOnly(false); setVisibleCount(24); }}
           >
             全部顯示
           </button>
           <button 
             className={`filter-btn ${filterType === 'Highlight' ? 'active' : ''}`}
-            onClick={() => { setFilterType('Highlight'); setVisibleCount(24); }}
+            onClick={() => { setFilterType('Highlight'); setShowFavoritesOnly(false); setVisibleCount(24); }}
           >
             ✨ 精華
           </button>
           <button 
             className={`filter-btn ${filterType === 'Full' ? 'active' : ''}`}
-            onClick={() => { setFilterType('Full'); setVisibleCount(24); }}
+            onClick={() => { setFilterType('Full'); setShowFavoritesOnly(false); setVisibleCount(24); }}
           >
             📼 完整存檔
+          </button>
+          <button 
+            className={`filter-btn ${showFavoritesOnly ? 'active' : ''}`}
+            onClick={() => { setShowFavoritesOnly(true); setFilterType('all'); setVisibleCount(24); }}
+            style={{ color: showFavoritesOnly ? 'black' : '#ff4d4d' }}
+          >
+            ❤️ 我的收藏
           </button>
         </div>
       </div>
@@ -130,46 +132,41 @@ function AllVideos() {
         padding: '20px' 
       }}>
         {visibleVideos.map((video) => (
-          <div key={video.id} className="video-card" onClick={() => setSelectedVideo(video)}>
-            <div className="video-thumbnail-container">
-              <img src={video.thumbnail} alt={video.title} className="video-thumbnail" />
-            </div>
-            <div className="video-info">
-              <span className="channel-badge">{video.channelTitle}</span>
-              <h3 style={{ height: 'auto', maxHeight: '3em' }}>{video.title}</h3>
-              <div className="video-meta">
-                <span>{new Date(video.publishedAt).toLocaleDateString()}</span>
-              </div>
-            </div>
-          </div>
+          <VideoCard 
+            key={video.id} 
+            video={video} 
+            onClick={setSelectedVideo}
+            isFavorite={isFavorite(video.id)}
+            onToggleFavorite={(e, id) => {
+              e.stopPropagation();
+              toggleFavorite(id);
+            }}
+          />
         ))}
       </main>
       
       <div ref={loaderRef} style={{ height: '100px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         {visibleCount < filteredVideos.length && <div className="loader">載入中...</div>}
-        {filteredVideos.length === 0 && <p style={{ color: 'var(--text-muted)' }}>找不到符合條件的影片 😢</p>}
+        {filteredVideos.length === 0 && (
+          <div style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
+            <p>{showFavoritesOnly ? '尚未收藏任何影片 ❤️' : '找不到符合條件的影片 😢'}</p>
+            {showFavoritesOnly && (
+              <button 
+                className="filter-btn" 
+                style={{ marginTop: '20px' }}
+                onClick={() => setShowFavoritesOnly(false)}
+              >
+                去逛逛影片
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
-      {selectedVideo && (
-        <div className="modal-overlay" onClick={() => setSelectedVideo(null)}>
-          <button className="close-btn" onClick={() => setSelectedVideo(null)}>&times;</button>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <div className="video-wrapper">
-              <iframe 
-                src={`https://www.youtube.com/embed/${selectedVideo.id}?autoplay=1`}
-                title={selectedVideo.title}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-            <div className="modal-details">
-              <h2>{selectedVideo.title}</h2>
-              <p>{selectedVideo.description}</p>
-            </div>
-          </div>
-        </div>
-      )}
+      <VideoModal 
+        video={selectedVideo} 
+        onClose={() => setSelectedVideo(null)} 
+      />
     </div>
   );
 }

@@ -1,0 +1,106 @@
+.sound-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  padding: 20px;
+}
+
+.sound-pad {
+  aspect-ratio: 1/1;
+  background: #1a1a1a;
+  border: 2px solid #333;
+  border-radius: 15px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  overflow: hidden;
+  padding: 0;
+}
+
+.pad-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  gap: 10px;
+}
+
+.pad-icon {
+  font-size: 2rem;
+}
+
+.pad-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #888;
+  transition: var(--transition);
+}
+
+.pad-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--primary-color);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.sound-pad:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.sound-pad:hover .pad-title {
+  color: var(--primary-color);
+}
+
+.sound-pad:active {
+  transform: scale(0.95);
+  background: var(--primary-color);
+}
+
+.sound-pad:active .pad-glow {
+  opacity: 0.2;
+}
+
+.sound-pad:active .pad-title,
+.sound-pad:active .pad-icon {
+  color: black;
+}
+
+.instruction-card {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.instruction-card h3 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.instruction-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .sound-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
