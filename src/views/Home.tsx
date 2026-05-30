@@ -14,10 +14,8 @@ const tiles = [
   { id: 'about', title: '關於', path: '/about' },
   { id: 'members', title: '成員', path: '/members' },
   { id: 'videos', title: '影片', path: '/videos' },
-  { id: 'analytics', title: '數據', path: '/analytics' },
   { id: 'community', title: '社群', path: '/community' },
   { id: 'yaotou', title: '藥頭', path: '/yaotou' },
-  { id: 'soundboard', title: '迷因', path: '/soundboard' },
 ];
 
 function Home() {
@@ -104,6 +102,17 @@ function Home() {
           </Link>
         ))}
       </main>
+
+      <footer className="home-footer-links">
+        <Link to="/analytics" className="official-btn analytics">
+          <span className="btn-icon">📊</span>
+          數據分析
+        </Link>
+        <Link to="/soundboard" className="official-btn soundboard">
+          <span className="btn-icon">🔊</span>
+          語音迷因
+        </Link>
+      </footer>
 
       <VideoModal 
         video={selectedVideo} 

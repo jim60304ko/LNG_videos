@@ -77,6 +77,29 @@
   background: #9146FF;
 }
 
+.official-btn.analytics:hover {
+  border-color: #00C49F;
+  color: white;
+  background: #00C49F;
+}
+
+.official-btn.soundboard:hover {
+  border-color: #FF8042;
+  color: white;
+  background: #FF8042;
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+}
+
+.home-footer-links {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  width: 100%;
+}
+
 .lng-logo-img {
   width: 100px; /* 稍微放大頭圖 */
   height: 100px;
