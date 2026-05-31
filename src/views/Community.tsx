@@ -1,10 +1,17 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import '../App.css';
 import imgKetchupfrog from '../assets/icons/ketchupfrog7788.jpg';
 
 function Community() {
   return (
-    <div className="app">
+    <motion.div 
+      className="app"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       <Link to="/" className="back-home-btn">🏠 回首頁</Link>
       <header>
         <h1>LNG 社群</h1>
@@ -95,7 +102,7 @@ function Community() {
           }
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 }
 

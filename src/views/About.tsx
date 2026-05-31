@@ -1,9 +1,16 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import '../App.css';
 
 function About() {
   return (
-    <div className="app">
+    <motion.div 
+      className="app"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       <Link to="/" className="back-home-btn">🏠 回首頁</Link>
       <header>
         <h1>關於 LNG Portal</h1>
@@ -18,7 +25,7 @@ function About() {
         
         <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '40px' }}>※ 本網站所有影片版權均屬原頻道所有。本站僅提供導航與連結功能。</p>
       </main>
-    </div>
+    </motion.div>
   );
 }
 

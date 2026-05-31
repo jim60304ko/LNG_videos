@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './Home.css'; 
 import './VideoNav.css'; 
 import videoData from '../data/videos.json';
@@ -19,14 +20,20 @@ interface Video {
 function VideoNav() {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
-  // 隨機挑選 15 部影片用於跑馬燈
-  const marqueeVideos = useMemo(() => {
+  // 更好的方式：使用 Lazy Initializer 在初始渲染時洗牌
+  const [randomVideos] = useState<Video[]>(() => {
     const shuffled = [...(videoData as Video[])].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 15);
-  }, []);
+  });
 
   return (
-    <div className="home-container">
+    <motion.div 
+      className="home-container"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       <Link to="/" className="back-home-btn">🏠 回首頁</Link>
       
       <main className="home-grid" style={{ maxWidth: '800px' }}>
@@ -47,7 +54,7 @@ function VideoNav() {
         <div className="marquee-container">
           <div className="marquee-content">
             {/* 複製兩份以實現無縫滾動 */}
-            {[...marqueeVideos, ...marqueeVideos].map((video, index) => (
+            {randomVideos.length > 0 && [...randomVideos, ...randomVideos].map((video, index) => (
               <div 
                 key={`${video.id}-${index}`} 
                 className="marquee-item"
@@ -85,7 +92,7 @@ function VideoNav() {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 

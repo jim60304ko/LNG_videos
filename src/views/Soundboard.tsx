@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './Soundboard.css';
 
 const sounds = [
@@ -23,7 +24,13 @@ function Soundboard() {
   };
 
   return (
-    <div className="app soundboard-page">
+    <motion.div 
+      className="app soundboard-page"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       <Link to="/" className="back-home-btn">🏠 回首頁</Link>
       
       <header>
@@ -51,7 +58,7 @@ function Soundboard() {
         <h3>💡 如何使用？</h3>
         <p>點擊上方按鈕即可播放經典音效。目前為功能演示，請確保 <code>src/assets/audio/</code> 資料夾中存有對應的檔案。</p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

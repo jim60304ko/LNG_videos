@@ -1,22 +1,34 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './views/Home';
-import VideoNav from './views/VideoNav';
-import Videos from './views/Videos';
-import AllVideos from './views/AllVideos';
-import About from './views/About';
-import Members from './views/Members';
-import Community from './views/Community';
-import Yaotou from './views/Yaotou';
-import Analytics from './views/Analytics';
-import Soundboard from './views/Soundboard';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from './components/ThemeToggle';
 import './App.css';
 
-function App() {
+// Lazy load views
+const Home = lazy(() => import('./views/Home'));
+const VideoNav = lazy(() => import('./views/VideoNav'));
+const Videos = lazy(() => import('./views/Videos'));
+const AllVideos = lazy(() => import('./views/AllVideos'));
+const About = lazy(() => import('./views/About'));
+const Members = lazy(() => import('./views/Members'));
+const Community = lazy(() => import('./views/Community'));
+const Yaotou = lazy(() => import('./views/Yaotou'));
+const Analytics = lazy(() => import('./views/Analytics'));
+const Soundboard = lazy(() => import('./views/Soundboard'));
+
+const Loading = () => (
+  <div className="loading-fallback">
+    <div className="loader"></div>
+    <p>Loading LNG Archive...</p>
+  </div>
+);
+
+function AnimatedRoutes() {
+  const location = useLocation();
+  
   return (
-    <Router>
-      <ThemeToggle />
-      <Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/videos" element={<VideoNav />} />
         <Route path="/videos/timeline" element={<Videos />} />
@@ -28,6 +40,17 @@ function App() {
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/soundboard" element={<Soundboard />} />
       </Routes>
+    </AnimatePresence>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <ThemeToggle />
+      <Suspense fallback={<Loading />}>
+        <AnimatedRoutes />
+      </Suspense>
     </Router>
   );
 }

@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './Home.css';
 import lngLogo from '../assets/brand/lng_live.png';
 import iconTwitch from '../assets/icons/twitch.png';
@@ -39,7 +40,13 @@ function Home() {
   }, []);
 
   return (
-    <div className="home-container">
+    <motion.div 
+      className="home-container"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       <header className="home-header">
         <div className="header-wrapper">
           <div className="header-content">
@@ -118,8 +125,9 @@ function Home() {
         video={selectedVideo} 
         onClose={() => setSelectedVideo(null)} 
       />
-    </div>
+    </motion.div>
   );
 }
+
 
 export default Home;

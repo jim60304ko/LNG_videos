@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import '../App.css';
 import videoData from '../data/videos.json';
 import type { Video } from '../types/video';
@@ -64,7 +65,13 @@ function AllVideos() {
   };
 
   return (
-    <div className="app">
+    <motion.div 
+      className="app"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       <Link to="/videos" className="back-home-btn">⬅ 影片選單</Link>
       
       <button 
@@ -167,7 +174,7 @@ function AllVideos() {
         video={selectedVideo} 
         onClose={() => setSelectedVideo(null)} 
       />
-    </div>
+    </motion.div>
   );
 }
 

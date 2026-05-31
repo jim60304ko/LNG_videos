@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import '../App.css';
 
 // 匯入頭像
@@ -96,7 +97,13 @@ const members = [
 
 function Members() {
   return (
-    <div className="app">
+    <motion.div 
+      className="app"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       <Link to="/" className="back-home-btn">🏠 回首頁</Link>
       <header>
         <h1>LNG 成員</h1>
@@ -177,7 +184,7 @@ function Members() {
           }
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 }
 

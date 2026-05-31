@@ -1,17 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './ThemeToggle.css';
 
 export function ThemeToggle() {
-  const [isLight, setIsLight] = useState(false);
-
-  useEffect(() => {
-    // 初始載入時檢查 localStorage
+  const [isLight, setIsLight] = useState(() => {
     const savedTheme = localStorage.getItem('lng-theme');
     if (savedTheme === 'light') {
-      setIsLight(true);
       document.body.classList.add('light-mode');
+      return true;
     }
-  }, []);
+    return false;
+  });
 
   const toggleTheme = () => {
     setIsLight(!isLight);

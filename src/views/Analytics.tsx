@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { 
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
   BarChart, Bar, PieChart, Pie, Cell, Legend 
@@ -48,7 +49,13 @@ function Analytics() {
   }, [allVideos]);
 
   return (
-    <div className="app analytics-page">
+    <motion.div 
+      className="app analytics-page"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
       <Link to="/" className="back-home-btn">🏠 回首頁</Link>
       
       <header>
@@ -121,7 +128,11 @@ function Analytics() {
                 <YAxis dataKey="name" type="category" stroke="#a0a0a0" width={150} />
                 <Tooltip 
                   contentStyle={{ backgroundColor: '#1a1a1a', border: '1px solid #FFD700' }}
-                  formatter={(value: any) => [Number(value).toLocaleString() + ' 次觀看', '觀看數']}
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  formatter={(value: any) => [
+                    value !== undefined ? Number(value).toLocaleString() + ' 次觀看' : '0 次觀看', 
+                    '觀看數'
+                  ]}
                 />
                 <Bar dataKey="views" fill="#FFD700" radius={[0, 5, 5, 0]} />
               </BarChart>
@@ -129,7 +140,7 @@ function Analytics() {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
