@@ -1,0 +1,1 @@
+var e=`/LNG_videos/assets/twitch-BBvd5Xxp.png`,t=`/LNG_videos/assets/facebook-DAPMkbXV.webp`;export{e as n,t};
