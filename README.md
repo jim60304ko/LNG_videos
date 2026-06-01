@@ -56,11 +56,19 @@
 ## 🛠️ 技術架構
 
 *   **前端框架**: React 19 + TypeScript + Vite
+*   **測試框架**: Vitest + React Testing Library
 *   **路由管理**: React Router DOM (HashRouter)
 *   **視覺設計**: Vanilla CSS (Modern Dark Style / Glassmorphism)
 *   **資料引擎**: Node.js + Axios + YouTube Data API v3
 *   **自動化 CI/CD**: GitHub Actions
 *   **網頁託管**: GitHub Pages
+
+## 🧪 測試與驗證
+
+本專案使用 Vitest 進行測試，涵蓋了工具函數、自定義 Hook 以及核心 UI 組件。
+
+*   **執行測試**: `npm run test`
+*   **涵蓋率報告**: `npm run test:coverage`
 
 ## 📜 聲明
 本網站為粉絲基於熱愛所製作之非官方專案。網站內所有影片、圖像之版權均屬於 LNG Workshop 原團隊及相關創作者所有。
