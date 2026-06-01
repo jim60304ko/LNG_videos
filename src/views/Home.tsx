@@ -25,7 +25,9 @@ function Home() {
 
   const playSecretSound = () => {
     const audio = new Audio('/src/assets/audio/secret.mp3');
-    audio.play().catch(() => console.log('Secret audio not found'));
+    audio.play().catch((err) => {
+      console.warn('Secret audio play failed:', err.message);
+    });
   };
   
   const onThisDayVideos = useMemo(() => {
@@ -52,22 +54,35 @@ function Home() {
           <div className="header-content">
             <img 
               src={lngLogo} 
-              alt="LNG Logo" 
+              alt="LNG Logo - 點擊有驚喜！" 
               className="lng-logo-img" 
               onClick={playSecretSound}
               style={{ cursor: 'pointer' }}
               title="Click for a surprise!"
+              aria-label="點擊播放神秘音效"
             />
             <h1>LNG Live</h1>
           </div>
           
           <div className="official-links">
-            <a href="https://www.facebook.com/LNG.live.official" target="_blank" rel="noopener noreferrer" className="official-btn fb">
-              <img src={iconFacebook} alt="FB" />
+            <a 
+              href="https://www.facebook.com/LNG.live.official" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="official-btn fb"
+              aria-label="前往官方 Facebook 粉絲專頁"
+            >
+              <img src={iconFacebook} alt="FB Icon" />
               Official Facebook
             </a>
-            <a href="https://www.twitch.tv/lngliveofficial" target="_blank" rel="noopener noreferrer" className="official-btn twitch">
-              <img src={iconTwitch} alt="Twitch" />
+            <a 
+              href="https://www.twitch.tv/lngliveofficial" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="official-btn twitch"
+              aria-label="前往官方 Twitch 頻道"
+            >
+              <img src={iconTwitch} alt="Twitch Icon" />
               Official Twitch
             </a>
           </div>
