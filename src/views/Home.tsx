@@ -23,13 +23,6 @@ function Home() {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const { isFavorite, toggleFavorite } = useFavorites();
 
-  const playSecretSound = () => {
-    const audio = new Audio('/src/assets/audio/secret.mp3');
-    audio.play().catch((err) => {
-      console.warn('Secret audio play failed:', err.message);
-    });
-  };
-  
   const onThisDayVideos = useMemo(() => {
     const today = new Date();
     const month = today.getMonth();
@@ -56,10 +49,6 @@ function Home() {
               src={lngLogo} 
               alt="LNG Logo - 點擊有驚喜！" 
               className="lng-logo-img" 
-              onClick={playSecretSound}
-              style={{ cursor: 'pointer' }}
-              title="Click for a surprise!"
-              aria-label="點擊播放神秘音效"
             />
             <h1>LNG Live</h1>
           </div>
@@ -129,10 +118,6 @@ function Home() {
         <Link to="/analytics" className="official-btn analytics">
           <span className="btn-icon">📊</span>
           數據分析
-        </Link>
-        <Link to="/soundboard" className="official-btn soundboard">
-          <span className="btn-icon">🔊</span>
-          語音迷因
         </Link>
       </footer>
 

@@ -83,12 +83,6 @@
   background: #00C49F;
 }
 
-.official-btn.soundboard:hover {
-  border-color: #FF8042;
-  color: white;
-  background: #FF8042;
-}
-
 .btn-icon {
   font-size: 1.2rem;
 }

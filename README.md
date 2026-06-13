@@ -47,9 +47,6 @@
 *   **📊 數據可視化儀表板 (Analytics Dashboard)**
     *   使用 `recharts` 繪製 LNG 頻道的歷年發片趨勢、影片分類比例以及觀看數 Top 10 影片排行。
 
-*   **🔊 語音迷因板 (Soundboard)**
-    *   收錄經典的成員語音與迷因按鈕，並隱藏了 Logo 互動彩蛋。
-
 *   **🤖 全自動化數據更新**
     *   透過 GitHub Actions，每月自動從 YouTube API 抓取最新影片與點閱率，確保網站永遠保持最新狀態。
 

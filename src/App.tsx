@@ -14,7 +14,6 @@ const Members = lazy(() => import('./views/Members'));
 const Community = lazy(() => import('./views/Community'));
 const Yaotou = lazy(() => import('./views/Yaotou'));
 const Analytics = lazy(() => import('./views/Analytics'));
-const Soundboard = lazy(() => import('./views/Soundboard'));
 
 const Loading = () => (
   <div className="loading-fallback">
@@ -38,7 +37,6 @@ function AnimatedRoutes() {
         <Route path="/community" element={<Community />} />
         <Route path="/yaotou" element={<Yaotou />} />
         <Route path="/analytics" element={<Analytics />} />
-        <Route path="/soundboard" element={<Soundboard />} />
       </Routes>
     </AnimatePresence>
   );
