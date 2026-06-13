@@ -39,7 +39,7 @@ const MusicPlayer: React.FC = () => {
           src="https://www.youtube.com/watch?v=xBMGrpvQ5e8"
           playing={isPlaying}
           loop={true}
-          volume={0.6}
+          volume={0.8}
           width="100%"
           height="100%"
         />
@@ -49,7 +49,7 @@ const MusicPlayer: React.FC = () => {
       <button 
         className={`music-toggle-btn ${isPlaying ? 'playing' : ''}`} 
         onClick={togglePlay}
-        title={isPlaying ? '暫停 BGM' : '播放 BGM'}
+        title={isPlaying ? '暫停 BGM: Xel\'Naga Cavern' : '播放 BGM: Xel\'Naga Cavern'}
       >
         <div className="music-icon-wrapper">
           {isPlaying ? (
@@ -63,7 +63,7 @@ const MusicPlayer: React.FC = () => {
             <span className="play-icon">🎵</span>
           )}
         </div>
-        <span className="music-tooltip">{isPlaying ? 'BGM ON' : 'BGM OFF'}</span>
+        <span className="music-tooltip">{isPlaying ? 'BGM ON: Xel\'Naga Cavern' : 'BGM OFF'}</span>
       </button>
     </div>
   );
