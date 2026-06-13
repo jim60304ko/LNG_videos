@@ -2,6 +2,7 @@ import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-d
 import { Suspense, lazy } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from './components/ThemeToggle';
+import MusicPlayer from './components/MusicPlayer';
 import './App.css';
 
 // Lazy load views
@@ -46,6 +47,7 @@ function App() {
   return (
     <Router>
       <ThemeToggle />
+      <MusicPlayer />
       <Suspense fallback={<Loading />}>
         <AnimatedRoutes />
       </Suspense>
