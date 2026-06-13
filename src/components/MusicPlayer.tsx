@@ -39,7 +39,7 @@ const MusicPlayer: React.FC = () => {
           src="https://www.youtube.com/watch?v=xBMGrpvQ5e8"
           playing={isPlaying}
           loop={true}
-          volume={0.3}
+          volume={0.6}
           width="100%"
           height="100%"
         />
